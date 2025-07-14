@@ -1,1 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap');
+
 @import "tailwindcss";
+
+
+
+/* @import "tailwindcss/preflight";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities"; */
+
+
+@theme {
+    --font-archivo: "Archivo";
+}
+
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+body {
+    background-color: #ECE8F0;
+    font-family: Archivo;
+}
+
+input,
+textarea {
+    caret-color: #401A6D;
+}
