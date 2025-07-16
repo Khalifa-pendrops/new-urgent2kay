@@ -3,7 +3,6 @@
 @import "tailwindcss";
 
 
-
 /* @import "tailwindcss/preflight";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities"; */
@@ -11,6 +10,12 @@
 
 @theme {
     --font-archivo: "Archivo";
+    --color-primary: #401A6D;
+    --color-secondary: #C4EAEA;
+    --color-success: #52C054;
+    --color-warning: #E8BF31;
+    --color-danger: #E23232;
+    --color-neutral: #959596;
 }
 
 
