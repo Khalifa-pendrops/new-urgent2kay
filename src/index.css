@@ -3,10 +3,6 @@
 @import "tailwindcss";
 
 
-/* @import "tailwindcss/preflight";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities"; */
-
 
 @theme {
     --font-archivo: "Archivo";

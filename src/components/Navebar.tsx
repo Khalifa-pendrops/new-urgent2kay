@@ -27,7 +27,7 @@ const Navbar: React.FC<UserProps> = ({ name }) => {
   //using lodash to trigger delay should in case of API call
   const handleSearch = async (searchValue: string) => {
     //await API call happens here
-    console.log("Delay the inputs for a while");
+    console.log("Delay the inputs for a while", searchValue);
   };
 
   //memoize the debounce to avoind re-render
@@ -54,7 +54,7 @@ const Navbar: React.FC<UserProps> = ({ name }) => {
     >
       {({ open }: { open: boolean }) => (
         <>
-          <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+          <div className="flex items-center justify-between px-4 py-4 mx-auto max-w-7xl">
             {/**hamburger */}
             <div className="flex md:hidden">
               <Disclosure.Button className="focus:outline-none">
@@ -87,7 +87,7 @@ const Navbar: React.FC<UserProps> = ({ name }) => {
             </div>
             <img src={purpleLogo} className="w-[150px] flex md:hidden" />
 
-            <div className="flex items-cenetr gap-4 ">
+            <div className="flex gap-4 items-cenetr ">
               <button className="border-1 rounded-full py-[6px] px-[12px] text-white bg-[#401A6D] font-semibold hidden md:flex">
                 Connect Wallet
               </button>
@@ -105,7 +105,7 @@ const Navbar: React.FC<UserProps> = ({ name }) => {
             </div>
 
             {/**desktop links goes here */}
-            <div className="hidden  space-x-6">
+            <div className="hidden space-x-6">
               {links.map((link) => (
                 <a
                   href={link.href}
