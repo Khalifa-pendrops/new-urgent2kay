@@ -1,10 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap");
 
 @import "tailwindcss";
 
-
-
-@theme {
+/* @theme {
     --font-archivo: "Archivo";
     --color-primary: #401A6D;
     --color-secondary: #C4EAEA;
@@ -12,17 +10,109 @@
     --color-warning: #E8BF31;
     --color-danger: #E23232;
     --color-neutral: #959596;
-}
+} */
 
+@import "tailwindcss";
+
+@theme {
+  --font-poppins: Poppins, sans-serif;
+  --font-archivo: "Archivo";
+
+  /* Primary */
+  --color-primary-50: #ece8f0;
+  --color-primary-100: #c4b8d2;
+  --color-primary-200: #a796bc;
+  --color-primary-300: #7f669d;
+  --color-primary-400: #66488a;
+  --color-primary-500: #401a6d;
+  --color-primary-600: #3a1863;
+  --color-primary-700: #2d124d;
+  --color-primary-800: #230e3c;
+  --color-primary-900: #1b0b2e;
+
+  /* Secondary */
+  --color-secondary-50: #f9fdfd;
+  --color-secondary-100: #edf8f8;
+  --color-secondary-200: #e4f5f5;
+  --color-secondary-300: #d7f1f1;
+  --color-secondary-400: #d0eeee;
+  --color-secondary-500: #c4eaea;
+  --color-secondary-600: #b2d5d5;
+  --color-secondary-700: #8ba6a6;
+  --color-secondary-800: #6c8181;
+  --color-secondary-900: #526262;
+
+  /* Success */
+  --color-success-50: #eef9ee;
+  --color-success-100: #c9ebca;
+  --color-success-200: #afe2b0;
+  --color-success-300: #8bd58c;
+  --color-success-400: #75cd76;
+  --color-success-500: #52c054;
+  --color-success-600: #4baf4c;
+  --color-success-700: #3a883c;
+  --color-success-800: #2d6a2e;
+  --color-success-900: #225123;
+
+  /* Warning */
+  --color-warning-50: #fdf9ea;
+  --color-warning-100: #f8ebbf;
+  --color-warning-200: #f4e2a0;
+  --color-warning-300: #f0d475;
+  --color-warning-400: #edcc5a;
+  --color-warning-500: #e8bf31;
+  --color-warning-600: #d3ae2d;
+  --color-warning-700: #a58823;
+  --color-warning-800: #80691b;
+  --color-warning-900: #615015;
+
+  /* Danger */
+  --color-danger-50: #fcebeb;
+  --color-danger-100: #f6bfbf;
+  --color-danger-200: #f2a1a1;
+  --color-danger-300: #ec7676;
+  --color-danger-400: #e85b5b;
+  --color-danger-500: #e23232;
+  --color-danger-600: #ce2e2e;
+  --color-danger-700: #a02424;
+  --color-danger-800: #7c1c1c;
+  --color-danger-900: #5f1515;
+
+  /* Neutral */
+  --color-neutral-50: #f4f4f5;
+  --color-neutral-100: #dedede;
+  --color-neutral-200: #cececf;
+  --color-neutral-300: #b8b8b9;
+  --color-neutral-400: #aaaaab;
+  --color-neutral-500: #959596;
+  --color-neutral-600: #888889;
+  --color-neutral-700: #6a6a6b;
+  --color-neutral-800: #525253;
+  --color-neutral-900: #3f3f3f;
+
+  /* Brand */
+  --color-brand-light: #e0f2fe;
+  --color-brand-default: #3b82f6;
+  --color-brand-dark: #1e3a8a;
+  --color-brand-green: #044d06;
+  --color-brand-green-900: #022703;
+  --color-brand-blue: #0a2680;
+  --color-brand-blue-900: #06164c;
+  --color-brand-teal: #076b6b;
+  --color-brand-teal-900: #043a3a;
+  --color-Approved: #4baf4c;
+  --color-Rejected: #ce2e2e;
+  --color-Pending: #e8bf31;
+}
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 body {
-    background-color: #ECE8F0;
-    font-family: Archivo;
+  background-color: #ece8f0;
+  font-family: Archivo;
 }
 
 input,
 textarea {
-    caret-color: #401A6D;
+  caret-color: #401a6d;
 }

@@ -5,9 +5,10 @@ import { useState } from "react";
 import axios from "axios";
 import { Preloader } from "../../components/Preloader.component";
 
-import { Button, type ButtonProps } from "../../components/Button.component";
-
-function Signup(props: ButtonProps) {
+import { Button } from "../../components/Button.component";
+import whiteLogo from "../../assets/white-logo.svg";
+import purpleLogo from "../../assets/purple-logo.svg";
+function Signup() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -35,17 +36,16 @@ function Signup(props: ButtonProps) {
       password,
     };
     try {
-      // Replace with your API endpoint
       const response = await axios.post(
         `${baseUrl}/api/auth/register`,
         signupData
       );
-      localStorage.setItem("signupEmail", email); // Store email in localStorage for later use
+      // localStorage.setItem("signupEmail", email); // Store email in localStorage for later use
       console.log("Signup successful:", response.data);
       setIsLoading(false);
       setSuccessMessage("Signup successful! Please log in.");
       setTimeout(() => {
-        navigate("/verify-email"); // Redirect to verify email page after successful signup
+        navigate("/verify-email", { state: { email } }); // Redirect to verify email page after successful signup
       }, 2000);
       // Handle successful signup (e.g., redirect to login page)
     } catch (error: unknown) {
@@ -70,13 +70,44 @@ function Signup(props: ButtonProps) {
   };
 
   return (
-    <div className="flex h-screen p-4 m-0 w-full items-center justify-center bg-gray-50">
-      <div className="bg-gray-100 p-6 rounded shadow-md w-[50%] h-full">
-        <h2 className="text-2xl font-semibold mb-4">Welcome to Our App</h2>
-        <p className="mb-4">Please sign up to continue</p>
+    <div className="grid grid-cols-2 w-screen min-h-screen max-sm:grid-cols-1">
+      <div className="bg-[url(/src/assets/image_fx.png)] bg-no-repeat bg-cover min-sm:bg-none min-md:bg-[url(/src/assets/image_fx.png)]">
+        <div className="px-8 pt-8 w-full min-h-screen flex flex-col max-sm:hidden md:visible">
+          <div className="flex flex-row justify-start">
+            <Link className="" to="/">
+              <img
+                src={whiteLogo}
+                alt="White logo"
+                className="w-[200px] mb-7"
+              />
+            </Link>
+          </div>
+          <div className="flex flex-col items-center justify-center  ">
+            <div className="border-2 border-solid border-neutral-200 px-12 pt-12 rounded-4xl bg-amber-50/70 min-h-[80vh] w-[80%] max-sm:hidden min-md:w-[80%]">
+              <p>
+                Welcome to{" "}
+                <span className="font-bold text-neutral-800">Urgent 2Kay</span>
+              </p>
+              <h2 className="mb-4 text-5xl text-neutral-800 italic my-8">
+                Skip the hassle. <br />
+                send & pay bills in one click.
+              </h2>
+              <p>
+                No more scattered requests or late fees - just simple, direct
+                payment
+              </p>
+            </div>
+          </div>
+        </div>
+        {/* <img src={heroLogo} alt="hero logo" className="sm:w-[100%] sm:m-auto" /> */}
       </div>
-      <div className="bg-gray-100 p-6 rounded shadow-md w-[50%] h-full flex flex-col items-center justify-center">
-        <h2 className="text-4xl font-semibold mb-4">Sign Up</h2>
+      <div className="bg-primary-50 px-6 rounded shadow-md w-full min-h-screen flex flex-col items-center justify-center min-sm:hidden min-md:flex">
+        <div className="flex flex-row justify-start min-sm:hidden">
+          <img src={purpleLogo} alt="Purple logo" className="w-[200px] mb-3" />
+        </div>
+        <h2 className="mb-4 text-lg text-neutral-800 italic min-sm:hidden">
+          Skip the hassle & pay bills in one click.
+        </h2>
         {isLoading && <Preloader />}
         {successMessage && (
           <div className="text-green-500 font-semibold">{successMessage}</div>
@@ -84,7 +115,8 @@ function Signup(props: ButtonProps) {
         {errorMessage && (
           <div className="text-red-500 font-semibold">{errorMessage}</div>
         )}
-        <form onSubmit={handleSubmit} className="w-full max-w-md">
+        <form onSubmit={handleSubmit} className=" max-w-md">
+          <h2 className="text-3xl font-semibold mb-4">Sign Up</h2>
           <label>First Name</label>
           <br />
           <input
@@ -131,7 +163,7 @@ function Signup(props: ButtonProps) {
           <br />
           <label>Password</label>
           <br />
-          <div className="text-sm text-gray-500 relative mb-0">
+          <div className="text-sm text-gray-500 relative ">
             <div className="relative">
               <input
                 required
@@ -152,20 +184,24 @@ function Signup(props: ButtonProps) {
                 )}
               </span>
             </div>
-            {password.length > 0 && password.length < 6 && (
-              <span className="text-red-500 text-sm mt-0 ">
-                Password must be at least 6 characters long.
-              </span>
-            )}
+            <span
+              className={`text-red-500 text-sm absolute ${
+                password.length > 0 && password.length < 6
+                  ? "visible"
+                  : "invisible"
+              }`}
+            >
+              Password must be at least 6 characters long.
+            </span>
           </div>
           <br />
-          <label className="mt-4">Confirm Password</label>
+          <label className="">Confirm Password</label>
           <br />
-          <div className="text-sm text-gray-500 mb-2 ">
+          <div className="text-sm text-gray-500">
             <div className="relative">
               <input
                 required
-                className="border-gray-300 border-2 p-2 w-full rounded-full"
+                className="border-gray-300 border-2 p-2 w-full rounded-full "
                 type={showConfirmPassword ? "text" : "password"}
                 placeholder="Confirm Password"
                 value={confirmPassword}
@@ -182,22 +218,26 @@ function Signup(props: ButtonProps) {
                 )}
               </span>
             </div>
-            {confirmPassword.length > 0 && password !== confirmPassword && (
-              <span className="text-red-500 text-sm">
-                Passwords do not match.
-              </span>
-            )}
+            <span
+              className={`text-red-500 text-sm absolute mb-4 ${
+                confirmPassword.length > 0 && password !== confirmPassword
+                  ? "visible"
+                  : "invisible"
+              }`}
+            >
+              Passwords do not match.
+            </span>
           </div>
           <br />
-          <div className="text-sm text-gray-500 mb-4">
+          <div className="text-sm text-gray-500 w-full ">
             By signing up, you agree to our{" "}
-            <Link to="/terms" className="text-blue-500">
+            <Link to="/terms" className="text-primary-700 font-bold">
               Terms and Conditions
             </Link>
             <br />
             <Button
-              label={props.label}
-              className={props.className}
+              label="Sign Up"
+              className="my-4 w-full"
               icon={<FaArrowAltCircleRight />}
               type={"submit"}
               disabled={
@@ -213,13 +253,13 @@ function Signup(props: ButtonProps) {
               // onClick={handleSubmit}
             />
           </div>
+          <p className="text-center">
+            Already have an account?{" "}
+            <Link className="text-primary-700 font-bold " to="/login">
+              Log in
+            </Link>
+          </p>
         </form>
-        <p>
-          Already have an account?{" "}
-          <Link className="text-blue-500" to="/login">
-            Log in
-          </Link>
-        </p>
       </div>
     </div>
   );

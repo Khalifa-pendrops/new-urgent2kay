@@ -30,12 +30,12 @@ const LandingPage = () => {
 
         {/* Buttons - hidden on small, shown on md+ */}
         <div className="hidden md:flex items-center gap-4">
-          <Link to="/sign-up">
+          <Link to="/login">
             <button className="border border-[#E8BF31] bg-transparent w-[96px] py-1.5 px-3 text-sm font-bold rounded-full cursor-pointer hover:bg-[#f5eac41a] transition">
               Sign In
             </button>
           </Link>
-          <Link to="/signup">
+          <Link to="/sign-up">
             <button className="bg-[#401A6D] text-white w-[175px] py-1.5 px-3 text-sm font-bold rounded-full cursor-pointer hover:bg-[#5e2891] transition">
               Join Urgent2kay
             </button>

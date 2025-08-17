@@ -17,7 +17,12 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <button
-      className={` text-white  ${className}`}
+      className={` text-white flex justify-center items-center p-4 rounded-full mb-4 text-lg 
+        ${
+          disabled
+            ? "bg-neutral-400 hover:cursor-disabled rounded-full"
+            : "bg-primary-500 hover:bg-primary-700 cursor-pointer rounded-full transition-all duration-300 ease-in-out"
+        } ${className}`}
       type={type ?? "button"}
       onClick={() => {
         if (type === "submit") {
@@ -30,16 +35,8 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       // onClick={onClick ? onClick : undefined}
     >
-      <span
-        className={`flex items-center justify-center cursor-pointer p-4 max-w-full h-full  ${
-          disabled
-            ? "bg-gray-400 cursor-disabled hover:bg-gray-400 rounded-full"
-            : " hover:bg-blue-700 cursor-pointer rounded-full transition duration-300 ease-in-out"
-        } `}
-      >
-        {label}
-        {icon && <span className="ml-2">{icon}</span>}
-      </span>
+      {label}
+      {icon && <span className="ml-2">{icon}</span>}
     </button>
   );
 };
