@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaUserFriends, FaSearch, FaCreditCard } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
@@ -12,12 +12,21 @@ import MiniCard from "../components/MiniCard";
 import Card from "../components/Card";
 import SideNavBar from "../components/SideNavBar";
 import TopNavBar from "../components/TopNavBar";
-// import { FaSearch } from "react-icons/fa6";
-// CSS Modules, react-datepicker-cssmodules.css
-// import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
 function Dashboard() {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [toggleSideBar, setToggleSideBar] = useState<boolean>(false);
+  const [isNotification, setIsNotification] = useState<boolean>(true);
+  const datePickerRef = useRef<DatePicker | null>(null);
+  function handleToggleSideBar() {
+    setToggleSideBar((prev) => !prev);
+  }
+  const handleMobileDateClick = () => {
+    if (datePickerRef.current) {
+      datePickerRef.current.setOpen(true);
+    }
+  };
+
   const recentActivities = [
     {
       id: 1,
@@ -140,21 +149,26 @@ function Dashboard() {
       actions: <Link to="/activity/3">View Details</Link>,
     },
   ];
-  //   const Example = () => {
-  //     return (
-  //       <DatePicker
-  //         selected={startDate}
-  //         onChange={(date: Date | null) => setStartDate(date)}
-  //       />
-  //     );
-  //   };
+
   return (
-    <div className="grid grid-cols-6 h-screen">
-      <SideNavBar />
+    <div className="grid grid-cols-1 md:grid-cols-6 h-screen w-screen">
+      <div
+        className={`md:col-span-1 bg-primary-800 text-white h-screen md:block fixed md:static md:translate-x-0 left-0 top-0  z-50 max-md:mt-16 transform transition-transform duration-300 ease-in-out ${
+          toggleSideBar ? "translate-x-0 " : "-translate-x-full"
+        }`}
+      >
+        <SideNavBar />
+      </div>
       <main className="col-span-5 py-4 bg-primary-50 overflow-auto">
-        <TopNavBar />
-        <div className="px-6 py-10">
-          <div className="grid grid-cols-4 gap-4">
+        <div className="max-w-[1536px] mx-auto md:grid justify-between items-center">
+          <TopNavBar
+            onMenuClick={handleToggleSideBar}
+            toggle={toggleSideBar}
+            isNotification={isNotification}
+          />
+        </div>
+        <div className="px-6 py-10 mt-4 md:mt-8 animate-[var(--animation-fade-in-up)] delay-200">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <MiniCard
               title="Requests Generated"
               value="0"
@@ -176,7 +190,7 @@ function Dashboard() {
               icon={<FaUserFriends />}
             />
           </div>
-          <div className="grid grid-cols-4 gap-4 mt-8">
+          <div className=" flex flex-row md:grid md:grid-cols-4 gap-4 mt-8 max-md:overflow-x-scroll animate-[var(--animation-fade-in-up)] delay-300">
             <Link to="/generate-request">
               <Card
                 icon={<RiStackLine />}
@@ -214,42 +228,47 @@ function Dashboard() {
               />
             </Link>
           </div>
-          <div className="mt-8 rounded-2xl bg-amber-50 w-full max-h-[70vh] pb-4 px-8 shadow-xl overflow-y-scroll ">
-            <div className="flex items-center mt-0 mb-4 justify-between sticky top-0 bg-amber-50 pb-2 px-4">
+          <div className="mt-8 rounded-2xl bg-amber-50 max-w-[90vw] md:w-full max-h-[70vh] pb-4 px-2 shadow-xl overflow-y-scroll animate-[var(--animation-fade-in-up)] delay-400">
+            <div className="flex items-center mt-2 mb-4 justify-between sticky top-0 bg-amber-50 pb-2 px-4 w-full">
               <div className="flex items-center">
-                <div className="px-4 mr-4">
-                  <h2 className="font-bold text-gray-950 ">
+                <div className="">
+                  <h2 className="font-medium text-sm md:text-2xl md:font-bold text-gray-950 ">
                     Recent Activities
                   </h2>
                 </div>
-                <div>
-                  <form action="">
+                <div className=" mx-2 md:block">
+                  <form action="" className="">
                     <div className="relative">
                       <input
                         type="text"
                         placeholder="Search"
-                        className="border border-warning-100 rounded-full py-2 px-4 bg-white w-md pl-10 focus:outline-none focus:ring-2 focus:ring-primary-500 transition duration-300 ease-in-out"
+                        className="border border-warning-100 rounded-full py-2 px-4 bg-white md:w-md w-[50vw] pl-10 focus:outline-none focus:ring-2 focus:ring-primary-500 transition duration-300 ease-in-out"
                       />
                       <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
                     </div>
                   </form>
                 </div>
               </div>
-              <div className=" relative border-l border-gray-200 py-2 px-4 bg-white w-64 shadow-md cursor-pointer mt-2">
-                <MdOutlineCalendarMonth className="inline-block mr-2 text-gray-400 absolute left-3 bottom-1/2 translate-y-1/2 text-xl" />
+              <div className=" group relative border-l border-gray-200 py-2 px-4 bg-white w-64 shadow-md cursor-pointer mt-2 rounded-full ">
+                <div
+                  onClick={handleMobileDateClick}
+                  className="absolute left-2 md:left-3 bottom-1/2 translate-y-1/2 touch-manipulation cursor-pointer"
+                >
+                  <MdOutlineCalendarMonth className="inline-block mr-2 text-gray-400 text-xl" />
+                </div>
                 <DatePicker
-                  className=" w-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out ml-5 text-lg cursor-pointer"
+                  className="hidden  md:inline-block md:w-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out ml-5 text-lg cursor-pointer"
                   selected={startDate}
                   onChange={(date: Date | null) => {
                     setStartDate(date);
-                  }} //only when value has changed
-                  showTimeSelect
+                  }}
+                  ref={datePickerRef}
                 />
-                <IoIosArrowDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
+                <IoIosArrowDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl hidden md:inline-block" />
               </div>
             </div>
             <div className="overflow-y-auto">
-              <table className="min-w-full divide-y divide-gray-200 mb-4">
+              <table className="w-full divide-y tab divide-gray-200 mb-4">
                 <thead className="bg-gray-50">
                   <tr>
                     <th

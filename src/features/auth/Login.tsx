@@ -35,14 +35,14 @@ function Login() {
       localStorage.setItem("signupEmail", email); // Store email in localStorage for later use
       console.log("Signup successful:", response.data);
       setIsLoading(false);
-      setSuccessMessage("Signup successful! Please log in.");
+      setSuccessMessage("Signup successful! Please verify your email.");
       setTimeout(() => {
         navigate("/verify-email"); // Redirect to verify email page after successful signup
       }, 2000);
-      // Handle successful signup (e.g., redirect to login page)
+      // Handle successful login (e.g., redirect to dashboard)
     } catch (error: unknown) {
-      console.error("Error during signup:", error);
-      let message = "Signup failed. Please try again.";
+      console.error("Error during login:", error);
+      let message = "Login failed. Please try again.";
       if (axios.isAxiosError(error) && error.response?.data?.message) {
         message = error.response.data.message;
       }
@@ -58,8 +58,8 @@ function Login() {
   };
 
   return (
-    <div className="grid grid-cols-2 w-screen min-h-screen max-sm:grid-cols-1">
-      <div className="bg-[url(/src/assets/image_fx.png)] bg-no-repeat bg-cover min-sm:bg-none min-md:bg-[url(/src/assets/image_fx.png)]">
+    <div className="grid grid-cols-1 w-full min-h-screen md:grid-cols-2 max-sm:p-8">
+      <div className="bg-[url(/src/assets/image_fx.png)] bg-no-repeat bg-cover hidden md:block ]">
         <div className="px-8 pt-8 w-full min-h-screen flex flex-col max-sm:hidden md:visible">
           <div className="flex flex-row justify-start">
             <Link className="" to="/">
@@ -70,7 +70,7 @@ function Login() {
               />
             </Link>
           </div>
-          <div className="flex flex-col items-center justify-center  ">
+          <div className="flex flex-col items-center justify-center ">
             <div className="border-2 border-solid border-neutral-200 px-12 pt-12 rounded-4xl bg-amber-50/70 min-h-[80vh] w-[80%] max-sm:hidden min-md:w-[80%]">
               <p>
                 Welcome to{" "}
@@ -87,23 +87,26 @@ function Login() {
             </div>
           </div>
         </div>
-        {/* <img src={heroLogo} alt="hero logo" className="sm:w-[100%] sm:m-auto" /> */}
       </div>
-      <div className="bg-primary-50 px-6 rounded shadow-md w-full min-h-screen flex flex-col items-center justify-center min-sm:hidden min-md:flex">
+      <div className="bg-primary-50 relative rounded w-full flex flex-col items-center justify-center max-sm:grid max-sm:shadow-none max-sm:grid-cols-1 max-sm:p-8 min-md:flex">
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-white/60 z-10">
+            <Preloader />
+          </div>
+        )}
         <div className="flex flex-row justify-start min-sm:hidden">
           <img src={purpleLogo} alt="Purple logo" className="w-[200px] mb-3" />
         </div>
         <h2 className="mb-4 text-lg text-neutral-800 italic min-sm:hidden">
           Skip the hassle & pay bills in one click.
         </h2>
-        {isLoading && <Preloader />}
         {successMessage && (
           <div className="text-green-500 font-semibold">{successMessage}</div>
         )}
         {errorMessage && (
           <div className="text-red-500 font-semibold">{errorMessage}</div>
         )}
-        <form onSubmit={handleSubmit} className=" max-w-md">
+        <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto">
           <h2 className="text-3xl font-semibold mb-4 ">Login</h2>
           <label>Email</label>
           <br />
@@ -153,11 +156,6 @@ function Login() {
           <br />
 
           <div className="text-sm text-gray-500 w-full ">
-            By signing up, you agree to our{" "}
-            <Link to="/terms" className="text-primary-700 font-bold">
-              Terms and Conditions
-            </Link>
-            <br />
             <Button
               label="Login"
               className="my-4 w-full"

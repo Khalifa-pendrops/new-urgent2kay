@@ -7,7 +7,6 @@ function App() {
   // };
   return (
     <>
-      {/* <h2 className="text-4xl font-semibold">Hafa, make we start here!</h2> */}
       <OurRoute />
     </>
   );

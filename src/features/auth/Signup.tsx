@@ -101,14 +101,18 @@ function Signup() {
         </div>
         {/* <img src={heroLogo} alt="hero logo" className="sm:w-[100%] sm:m-auto" /> */}
       </div>
-      <div className="bg-primary-50 px-6 rounded shadow-md w-full min-h-screen flex flex-col items-center justify-center min-sm:hidden min-md:flex">
+      <div className="bg-primary-50 relative px-6 rounded shadow-md w-full min-h-screen flex flex-col items-center justify-center min-sm:hidden min-md:flex">
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-white/60 z-10">
+            <Preloader />
+          </div>
+        )}
         <div className="flex flex-row justify-start min-sm:hidden">
           <img src={purpleLogo} alt="Purple logo" className="w-[200px] mb-3" />
         </div>
         <h2 className="mb-4 text-lg text-neutral-800 italic min-sm:hidden">
           Skip the hassle & pay bills in one click.
         </h2>
-        {isLoading && <Preloader />}
         {successMessage && (
           <div className="text-green-500 font-semibold">{successMessage}</div>
         )}
@@ -156,7 +160,7 @@ function Signup() {
             required
             className="mb-4 border-gray-300 border-2 p-2 w-full rounded-full"
             type="text"
-            placeholder="Phone Number"
+            placeholder="2348031234567"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />

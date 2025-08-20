@@ -8,10 +8,11 @@ import { Link } from "react-router-dom";
 
 function SideNavBar() {
   return (
-    <aside className="col-span-1 bg-primary-800 p-4 text-white h-screen ">
-      <div className="flex items-center justify-center mt-4 mb-[30%]">
+    <aside className=" bg-primary-800 p-4 text-white h-screen">
+      <div className="hidden md:flex items-center justify-center mt-4 mb-[30%]">
         <img src={whiteLogo} alt="Logo" className="h-12" />
       </div>
+
       <div className="mt-4">
         <Link
           to="/dashboard"

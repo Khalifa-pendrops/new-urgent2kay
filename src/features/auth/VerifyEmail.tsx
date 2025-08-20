@@ -79,13 +79,17 @@ function VerifyEmail() {
     return () => clearInterval(interval);
   }, [countdownActive, countdownTimer]);
   return (
-    <div className="grid grid-cols-2 w-screen min-h-screen max-sm:grid-cols-1">
+    <div className="grid relative grid-cols-2 w-screen min-h-screen max-sm:grid-cols-1">
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-white/60 z-10">
+          <Preloader />
+        </div>
+      )}
       <div className="bg-[url(/src/assets/image_fx.png)] bg-no-repeat bg-cover min-sm:bg-none min-md:bg-[url(/src/assets/image_fx.png)]">
         <div className="px-8 pt-8 w-full min-h-screen flex flex-col max-sm:hidden md:visible">
           <div className="flex flex-row justify-start">
             <img src={whiteLogo} alt="White logo" className="w-[200px] mb-7" />
           </div>
-          {isLoading && <Preloader />}
           <div className="flex flex-col items-center justify-center  ">
             <div className="border-2 border-solid border-neutral-200 px-12 pt-12 rounded-4xl bg-amber-50/70 min-h-[80vh] w-[80%] max-sm:hidden min-md:w-[80%]">
               <p>
